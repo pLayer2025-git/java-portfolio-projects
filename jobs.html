@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Job Listings</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Job Listings</h1>
+
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.title}"></td>
+        <td th:text="${job.company}"></td>
+        <td th:text="${job.description}"></td>
+        <td th:text="${job.location}"></td>
+        <td>
+<!--            <a th:href="@{'/jobs/' + ${job.id} + '/apply'}">Apply</a>-->
+            <a th:href="@{/applications/apply/{id}(id=${job.id})}">Apply</a>
+
+        </td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Add New Job (Employer)</h2>
+<form th:action="@{/jobs/add}" method="post" th:object="${job}">
+    <input type="text" th:field="*{title}" placeholder="Job Title" required><br><br>
+    <input type="text" th:field="*{company}" placeholder="Company" required><br><br>
+    <input type="text" th:field="*{description}" placeholder="Job Description" required><br><br>
+    <input type="text" th:field="*{location}" placeholder="Location" required><br><br>
+    <button type="submit">Add Job</button>
+</form>
+
+    <!-- form or table or content here -->
+</div>
+
+</body>
+</html>
